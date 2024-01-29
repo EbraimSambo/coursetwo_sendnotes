@@ -1,6 +1,12 @@
 <?php
 
+use App\Livewire\Notes\Create;
+use App\Livewire\Notes\Index;
+use App\Livewire\Notes\SingleNotes;
+use App\Models\Note;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -13,11 +19,23 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::view('/', 'livewire.pages.home');
+Route::view('/', 'welcome');
 
 Route::view('dashboard', 'dashboard')
     ->middleware(['auth', 'verified'])
     ->name('dashboard');
+
+Route::get('notes', Index::class)
+    ->middleware(['auth'])
+    ->name('notes');
+
+Route::get('create', Create::class)
+    ->middleware(['auth'])
+    ->name('notes.create');
+
+Route::get('show/{slug}', SingleNotes::class)
+    ->middleware(['auth'])
+    ->name('show');
 
 Route::view('profile', 'profile')
     ->middleware(['auth'])
