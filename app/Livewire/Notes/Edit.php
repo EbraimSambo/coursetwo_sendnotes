@@ -2,19 +2,20 @@
 
 namespace App\Livewire\Notes;
 
+use App\Models\Note;
 use Livewire\Component;
-use Illuminate\Support\Str;
 
-class Form extends Component
+class Edit extends Component
 {
-
-    public $title;
-    public $body;
-    public $bodyr= "sambo";
-
-    public function save(){
-
-        $validaited = $this->validate([
+    public Note $title;
+    public Note $body;
+    public $note;
+    public function mount($slug) {
+        $this->note =auth()->user()->notes()->where('uuid', $slug)->firstOrFail();
+        //  Note::;
+    }
+    public function update() {
+        $this->validate([
             'title' => ['required', 'string', 'min:3'],
             'body' => 'required'
         ],[
@@ -24,19 +25,14 @@ class Form extends Component
             'body.required' => 'Esqueceu de escrever a descrição', 
         ]);
 
-        auth()->user()->notes()->create([
-            'uuid' => Str::uuid(10),
+        auth()->user()->notes()->update([
             'title' => $this->title,
             'body' => $this->body
         ]);
 
-        $this->reset();
-       return session()->flash('sucess', 'Dados Enviados com sucesso.');
-
     }
-
     public function render()
     {
-        return view('livewire.notes.form');
+        return view('livewire.notes.edit')->layout('layouts.app');
     }
 }

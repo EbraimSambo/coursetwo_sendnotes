@@ -1,6 +1,7 @@
 <?php
 
 use App\Livewire\Notes\Create;
+use App\Livewire\Notes\Edit;
 use App\Livewire\Notes\Index;
 use App\Livewire\Notes\SingleNotes;
 use App\Models\Note;
@@ -36,6 +37,10 @@ Route::get('create', Create::class)
 Route::get('show/{slug}', SingleNotes::class)
     ->middleware(['auth'])
     ->name('show');
+
+Route::get('edit/{slug}/edit', Edit::class)
+    ->middleware(['auth'])
+    ->name('edit');
 
 Route::view('profile', 'profile')
     ->middleware(['auth'])

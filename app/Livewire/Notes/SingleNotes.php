@@ -11,7 +11,8 @@ class SingleNotes extends Component
     public $note;
 
     public function mount($slug) {
-        $this->note = Note::where('uuid', $slug)->firstOrFail();
+        $this->note =auth()->user()->notes()->where('uuid', $slug)->firstOrFail();
+        //  Note::;
     }
     public function render()
     {

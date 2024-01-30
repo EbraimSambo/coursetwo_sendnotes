@@ -14,6 +14,7 @@ class Note extends Model
         'uuid',
         'body',
         'title',
+        'heart_count'
     ];
 
     public function user(): BelongsTo {

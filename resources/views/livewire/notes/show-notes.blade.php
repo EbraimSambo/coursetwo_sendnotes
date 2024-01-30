@@ -6,11 +6,12 @@
             <x-card class="p-4"> 
                     <h1>{{$note->title}}</h1>
                     <p> {{$note->created_at->format('d/m/Y')}} </p>
+                    <p>{{ Str::limit($note->body, 2) }}</p>
                     <x-button href="{{ route('show', $note->uuid) }}" wire:navigate>Ver</x-button>
                     <div class="">
                         <x-button.circle icon="eye"></x-button.circle>
-                        <x-button.circle icon="trash"></x-button.circle>
-
+                        <x-button.circle wire:click="delete('{{$note->uuid}}')" icon="trash"></x-button.circle>
+                    
                     </div>
                 </x-card>
             @endforeach 
